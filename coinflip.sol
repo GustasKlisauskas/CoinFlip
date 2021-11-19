@@ -28,7 +28,7 @@ contract CoinFlipGame {
     mapping(address=> uint) public Wins;
     mapping(address=> uint) public Losses; //pretty embarrassing, I know
 
-    /// @notice Player will be able to easily check game lobby information
+    /// @notice Player will be able to easily check game lobby information.
     gameLobby[] public lobbyInfo;
 
     /// @notice Creates a struct with 1 player and set game price.
@@ -72,14 +72,14 @@ contract CoinFlipGame {
     }
 
     /// @notice Random number generator. Generates number from 1 to 99 (not a true 50/50, but does the job). 
-    /// @notice Second player pays a little more in gas fees, so he gets 0.5% bonus
+    /// @notice Second player pays a little more in gas fees, so he gets 0.5% bonus.
     /// @dev Using keccak256 is not a very secure way. If launched to public, should be changed to oracle.
     function randMod() internal returns(uint) {
         Randnonce++;
         return uint(keccak256(abi.encodePacked(block.timestamp, msg.sender, Randnonce))) % 100;
     }
 
-    /// @notice Looks into game chosen struct price and duplicates it for cashout
+    /// @notice Looks into game chosen struct price and duplicates it for cashout.
     function CashoutWinnings(uint _gameId) public {
         require(lobbyInfo[_gameId].completed, "Game not completed");
         require(msg.sender==lobbyInfo[_gameId].winner, "You are not winner in this game, check game ID");
